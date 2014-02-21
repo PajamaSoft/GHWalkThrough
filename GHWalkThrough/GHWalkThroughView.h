@@ -33,6 +33,8 @@ typedef NS_ENUM(NSInteger, GHWalkThroughViewDirection) {
 
 @property (nonatomic, copy) NSString *closeTitle;
 
+@property (nonatomic, strong) UIPageControl *customPageControl;
+
 - (void) showInView:(UIView*) view animateDuration:(CGFloat) duration;
 
 @end

@@ -128,7 +128,13 @@
 }
 
 - (void)buildFooterView {
-    self.pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0, self.frame.size.height - 60, self.frame.size.width, 20)];
+    CGRect pageControlFrame = CGRectMake(0, self.frame.size.height - 60, self.frame.size.width, 20);
+    if (self.customPageControl) {
+        self.pageControl = self.customPageControl;
+        self.pageControl.frame = pageControlFrame;
+    } else {
+        self.pageControl = [[UIPageControl alloc] initWithFrame:pageControlFrame];
+    }
     
     //Set defersCurrentPageDisplay to YES to prevent page control jerking when switching pages with page control. This prevents page control from instant change of page indication.
     self.pageControl.defersCurrentPageDisplay = YES;
