@@ -35,6 +35,12 @@ typedef NS_ENUM(NSInteger, GHWalkThroughViewDirection) {
 
 @property (nonatomic, strong) UIPageControl *customPageControl;
 
+// The number of points from the bottom of the screen that
+// the page control will appear at. 0 = perfectly flush with
+// the bottom edge of the screen. If not set, a default
+// value is used.
+@property (nonatomic, assign) CGFloat pageControlOffset;
+
 - (void) showInView:(UIView*) view animateDuration:(CGFloat) duration;
 
 @end

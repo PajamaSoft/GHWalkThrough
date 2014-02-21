@@ -8,6 +8,8 @@
 
 #import "GHWalkThroughView.h"
 
+static const CGFloat kDefaultPageControlOffset = 60.0f;
+
 @interface GHWalkThroughView ()<UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 
 @property (nonatomic, strong) UICollectionView* collectionView;
@@ -23,6 +25,8 @@
 
 @implementation GHWalkThroughView
 
+@synthesize pageControlOffset = _pageControlOffset;
+
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -35,6 +39,9 @@
 
 - (void) setup
 {
+    //Signify default value for offset
+    _pageControlOffset = -1;
+    
     self.backgroundColor = [UIColor grayColor];
     
     _bgFrontLayer = [[UIImageView alloc] initWithFrame:self.frame];
@@ -62,7 +69,30 @@
     [self addSubview:_collectionView];
     
     [self buildFooterView];
+}
 
+- (CGFloat)pageControlOffset {
+    if (_pageControlOffset == -1) {
+        return kDefaultPageControlOffset;
+    } else {
+        return _pageControlOffset;
+    }
+}
+
+- (void)setPageControlOffset:(CGFloat)pageControlOffset {
+    if (_pageControlOffset != pageControlOffset) {
+        if (pageControlOffset >= 0) {
+            _pageControlOffset = pageControlOffset;
+            [self buildFooterView];
+        }
+    }
+}
+
+- (void)setCustomPageControl:(UIPageControl *)customPageControl {
+    if (![_customPageControl isEqual:customPageControl]) {
+        _customPageControl = customPageControl;
+        [self buildFooterView];
+    }
 }
 
 - (void) setFloatingHeaderView:(UIView *)floatingHeaderView
@@ -128,7 +158,13 @@
 }
 
 - (void)buildFooterView {
-    CGRect pageControlFrame = CGRectMake(0, self.frame.size.height - 60, self.frame.size.width, 20);
+    // clear out any existing footer views
+    [self.pageControl removeFromSuperview];
+    [self.skipButton removeFromSuperview];
+    
+    CGFloat pageControlHeight = 20.0f;
+    CGFloat pageControlOffset = self.pageControlOffset == 0 ? pageControlHeight : self.pageControlOffset;
+    CGRect pageControlFrame = CGRectMake(0, self.frame.size.height - pageControlOffset, self.frame.size.width, pageControlHeight);
     if (self.customPageControl) {
         self.pageControl = self.customPageControl;
         self.pageControl.frame = pageControlFrame;
