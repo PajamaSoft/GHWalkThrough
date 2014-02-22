@@ -127,6 +127,12 @@ static const CGFloat kDefaultPageControlOffset = 60.0f;
     [self.skipButton setTitle:_closeTitle forState:UIControlStateNormal];
 }
 
+- (void)setCloseColor:(UIColor *)closeColor
+{
+    _closeColor = closeColor;
+    [self.skipButton setTitleColor:_closeColor forState:UIControlStateNormal];
+}
+
 - (void) orientFooter
 {
     if (self.walkThroughDirection == GHWalkThroughViewDirectionVertical) {

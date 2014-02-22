@@ -33,6 +33,8 @@ typedef NS_ENUM(NSInteger, GHWalkThroughViewDirection) {
 
 @property (nonatomic, copy) NSString *closeTitle;
 
+@property (nonatomic, strong) UIColor *closeColor;
+
 @property (nonatomic, strong) UIPageControl *customPageControl;
 
 // The number of points from the bottom of the screen that
